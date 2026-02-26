@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { Header } from "@/components/clean-home/Header";
+import { BottomNav } from "@/components/Botton";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -23,11 +26,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider>
+          <Header />
+          {children}
+          <BottomNav />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -24,28 +24,36 @@ export function CalendarCard({ calLink }: CalendarCardProps) {
   }, []);
 
   return (
-    <Card className="border-2 border-primary/10 shadow-sm">
-      <CardContent className="p-5">
-        <h4 className="font-semibold mb-4 flex items-center gap-2">
-          <Calendar className="h-4 w-4 text-primary" /> Agenda tu Servicio
-        </h4>
-
+    <Card className="border-0 shadow-lg bg-gradient-to-br from-accent to-accent/50 overflow-hidden">
+      <CardContent className="p-6">
         <div className="space-y-4">
-          <div className="bg-muted/50 rounded-xl p-4 text-center">
-            <p className="text-xs text-muted-foreground mb-3">
-              Sincronizado con Google Calendar
+          <div className="space-y-2">
+            <h4 className="font-bold text-lg flex items-center gap-2 text-foreground">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <Calendar className="h-4 w-4 text-primary" />
+              </div>
+              Agenda tu Servicio
+            </h4>
+            <p className="text-sm text-muted-foreground">
+              Elige la fecha y hora que mejor te convenga
+            </p>
+          </div>
+
+          <div className="bg-background/50 backdrop-blur rounded-lg p-4 text-center border border-border">
+            <p className="text-xs text-muted-foreground mb-3 font-medium">
+              Disponibilidad en tiempo real
             </p>
 
             <Button
               data-cal-link={calLink}
-              className="w-full bg-primary hover:bg-primary/90 text-white rounded-xl shadow-md transition-all active:scale-95"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg shadow-md font-semibold transition-all active:scale-95"
             >
               Programar Cita
             </Button>
           </div>
 
-          <p className="text-[10px] text-center text-muted-foreground italic">
-            Confirmación inmediata vía email
+          <p className="text-xs text-center text-muted-foreground">
+            ✓ Confirmación inmediata vía email
           </p>
         </div>
       </CardContent>

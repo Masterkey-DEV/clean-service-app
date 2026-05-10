@@ -31,74 +31,82 @@ export function HeroSlider() {
   };
 
   return (
-    <section className="relative rounded-3xl overflow-hidden h-56 md:h-100 shadow-lg bg-slate-900 group">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={current}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.7 }}
-          className="relative h-full w-full"
-        >
-          {/* Imagen con Efecto Zoom */}
+    <div className="w-full space-y-4">
+      <section className="relative rounded-2xl overflow-hidden h-56 md:h-80 shadow-xl bg-foreground/10 group">
+        <AnimatePresence mode="wait">
           <motion.div
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 8 }}
-            className="absolute inset-0"
+            key={current}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7 }}
+            className="relative h-full w-full"
           >
-            <Image
-              src={SLIDES[current].image}
-              alt="Servicio de limpieza"
-              fill
-              className="object-cover opacity-80"
-              priority
-            />
-            <div className="absolute inset-0 bg-linear-to-r from-black/90 via-black/40 to-transparent" />
-          </motion.div>
-
-          {/* Contenido Animado */}
-          <div className="absolute inset-0 p-6 md:p-10 flex flex-col justify-end md:justify-center text-white z-10">
+            {/* Imagen con Efecto Zoom */}
             <motion.div
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="max-w-2xl"
+              initial={{ scale: 1.08 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 8, ease: "linear" }}
+              className="absolute inset-0"
             >
-              <Badge className="mb-3 bg-primary/90 text-primary-foreground border-none">
-                {SLIDES[current].badge}
-              </Badge>
-              <h2 className="text-2xl md:text-5xl font-bold leading-tight mb-2 md:mb-4">
-                {SLIDES[current].title}
-              </h2>
-              <p className="text-sm md:text-lg text-white/90 mb-4 md:mb-6 max-w-md hidden sm:block">
-                {SLIDES[current].description}
-              </p>
-              <Button className="rounded-full px-6 group/btn" size="lg">
-                {SLIDES[current].cta}
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-              </Button>
+              <Image
+                src={SLIDES[current].image}
+                alt="Servicio de limpieza"
+                fill
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/40 to-black/20" />
             </motion.div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
 
-      {/* Indicadores (Dots) */}
-      <div className="absolute bottom-6 right-6 z-20 flex gap-2">
+            {/* Contenido Animado */}
+            <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end text-white z-10">
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="space-y-3"
+              >
+                <Badge className="w-fit bg-primary/90 text-primary-foreground border-none">
+                  {SLIDES[current].badge}
+                </Badge>
+                <h2 className="text-2xl md:text-4xl font-bold leading-tight">
+                  {SLIDES[current].title}
+                </h2>
+                <p className="text-sm md:text-base text-white/85 max-w-xl hidden sm:block">
+                  {SLIDES[current].description}
+                </p>
+                <div className="pt-2">
+                  <Button 
+                    size="lg" 
+                    className="gap-2 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+                  >
+                    {SLIDES[current].cta}
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </section>
+
+      {/* Indicadores mejorados */}
+      <div className="flex justify-center gap-2">
         {SLIDES.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`h-2 rounded-full transition-all duration-300 ${
+            className={`rounded-full transition-all duration-300 ${
               current === index
-                ? "w-8 bg-primary"
-                : "w-2 bg-white/40 hover:bg-white/60"
+                ? "w-8 h-2 bg-primary"
+                : "w-2 h-2 bg-border hover:bg-primary/40"
             }`}
+            aria-label={`Ir a slide ${index + 1}`}
           />
         ))}
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -106,43 +114,28 @@ export function HeroSlider() {
 const SLIDES = [
   {
     id: 1,
-    badge: "Nuevo Servicio",
-    title: (
-      <>
-        Tu hogar impecable,
-        <br className="hidden md:block" /> tu mente tranquila.
-      </>
-    ),
+    badge: "Servicio Premium",
+    title: "Tu hogar limpio, tu paz asegurada",
     description:
-      "Descubre la experiencia CleanHome Premium. Experiencia certificada en cada detalle.",
-    image: "/images/hogar.jpg",
+      "Servicio de limpieza residencial profesional con los mejores estándares de calidad.",
+    image: "/images/hero-cleaning.jpg",
     cta: "Reservar Ahora",
   },
   {
     id: 2,
-    badge: "Promoción",
-    title: (
-      <>
-        Desinfección Profunda
-        <br className="hidden md:block" /> para tu bienestar.
-      </>
-    ),
-    description: "Eliminamos el 99% de bacterias con productos eco-friendly.",
-    image: "/images/desinfeccion.jpg",
-    cta: "Saber más",
+    badge: "Desinfección",
+    title: "Limpieza profunda con tecnología avanzada",
+    description: "Eliminamos el 99.9% de bacterias y virus con productos certificados.",
+    image: "/images/profunda.jpg",
+    cta: "Solicitar Servicio",
   },
   {
     id: 3,
-    badge: "Empresas",
-    title: (
-      <>
-        Oficinas que inspiran
-        <br className="hidden md:block" /> productividad.
-      </>
-    ),
+    badge: "Corporativo",
+    title: "Oficinas impecables, equipo productivo",
     description:
-      "Planes corporativos diseñados para mantener tu ambiente laboral perfecto.",
-    image: "/images/oficinas.jpg",
-    cta: "Cotizar ahora",
+      "Soluciones corporativas profesionales diseñadas para tu empresa.",
+    image: "/images/oficina-servicio.jpg",
+    cta: "Cotizar Ahora",
   },
 ];

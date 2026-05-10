@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, Bell, Moon, Sun } from "lucide-react";
+import { Menu, Bell, Moon, Sun, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -22,20 +22,32 @@ export const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-4">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-xl">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between max-w-6xl">
+        {/* Logo */}
+        <div className="flex items-center gap-3">
           <Button variant="ghost" size="icon" className="md:hidden">
             <Menu className="h-5 w-5" />
           </Button>
 
-          <h1 className="font-bold text-xl">
-            CMM<span className="text-foreground">Clean</span>
-          </h1>
+          <div className="flex items-center gap-2">
+            <div className="p-2 rounded-lg bg-primary text-primary-foreground">
+              <Sparkles className="h-5 w-5" />
+            </div>
+            <h1 className="font-bold text-lg tracking-tight hidden sm:block">
+              CleanHome
+            </h1>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" onClick={toggleTheme}>
+        {/* Controls */}
+        <div className="flex items-center gap-1">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={toggleTheme}
+            className="hover:bg-accent hover:text-accent-foreground"
+          >
             {isDark ? (
               <Sun className="h-5 w-5" />
             ) : (
@@ -43,7 +55,11 @@ export const Header = () => {
             )}
           </Button>
 
-          <Button variant="ghost" size="icon">
+          <Button 
+            variant="ghost" 
+            size="icon"
+            className="hover:bg-accent hover:text-accent-foreground"
+          >
             <Bell className="h-5 w-5" />
           </Button>
         </div>
